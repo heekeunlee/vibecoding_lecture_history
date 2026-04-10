@@ -1,0 +1,47 @@
+[
+  {
+    "id": "5d6b8e74-cb32-438e-9d61-bd95e4d08d48",
+    "title": "Vibe Coding History Logbook",
+    "date": "2026-04-10",
+    "messages": [
+      {
+        "role": "user",
+        "content": "지금까지의 우리 대화내용을 토씨하나 빠짐없이 저장해두고 앞으로의 대화도 (업데이트하면서) 웹앱형태로 배포해서 두고두고 히스토리 로그북으로서 봤으면 해.\n나의 깃허브 저장소 '''https://github.com/heekeunlee/vibecoding_lecture_history'''에 커밋, 푸쉬를 자동으로 진행해서 배포까지 해줘."
+      },
+      {
+        "role": "assistant",
+        "content": "네, 알겠습니다! 지금까지의 모든 대화 내용을 소중히 담아 'Vibe Coding History Logbook' 웹 앱을 제작하고, 요청하신 GitHub 저장소에 자동으로 배포해 드리겠습니다.\n\n### 진행 계획\n1. **프리미엄 로그북 디자인**: 다크 모드와 세련된 애니메이션이 적용된 리액트 기반 웹 앱을 구축합니다.\n2. **대화 데이터 통합**: 현재까지의 대화 내역을 JSON 형식으로 추출하여 앱에 포함합니다.\n3. **GitHub 연동 및 배포**: `heekeunlee/vibecoding_lecture_history` 저장소에 코드를 푸시하고 GitHub Pages를 통해 실시간 배포합니다.\n4. **지속적 업데이트**: 앞으로의 대화도 쉽게 업데이트할 수 있는 구조로 만들겠습니다.\n\n지금 바로 작업을 시작합니다!"
+      }
+    ]
+  },
+  {
+    "id": "b41000f0-5ced-4ebd-9ed8-684aabf44db8",
+    "title": "Vibe Coding Lecture Planning",
+    "date": "2026-04-09",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Vibe Coding 강의 계획을 세워보고 싶어. 렛유인_KDC_강의계획서.xlsx 파일을 분석해서 20차시 정도의 커리큘럼을 만들어줘."
+      },
+      {
+        "role": "assistant",
+        "content": "강의 계획서 파일을 분석하여 AI 기반의 'Vibe Coding' 흐름에 맞춘 20차시 커리큘럼을 설계해 드렸습니다. 각 차시는 이론보다는 실습과 'Vibe'를 맞추는 과정에 집중되어 있습니다."
+      }
+    ]
+  },
+  {
+    "id": "65403906-3276-461b-8b24-c685329a99fe",
+    "title": "Updating ETF Profit Records",
+    "date": "2026-04-08",
+    "messages": [
+      {
+        "role": "user",
+        "content": "오늘자 ETF 수익 내역을 업데이트해줘. 이미지에서 데이터를 추출해서 history.json에 반영하고 푸시해."
+      },
+      {
+        "role": "assistant",
+        "content": "이미지 분석을 통해 TIGER 2차전지 TOP10 등의 수익 내역을 확인했습니다. history.json 파일을 업데이트하고 GitHub에 커밋 및 푸시를 완료했습니다."
+      }
+    ]
+  }
+]
