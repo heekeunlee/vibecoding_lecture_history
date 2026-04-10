@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Book, MessageSquare, Calendar, ChevronRight, Search, Github, Shield } from 'lucide-react';
+import { useState } from 'react';
+import { Book, Calendar, Search, Shield } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -103,12 +103,13 @@ export default function App() {
                       <div className="role-badge">{msg.role}</div>
                     </div>
                     <div className="message-content">
-                      <ReactMarkdown 
-                        remarkPlugins={[remarkGfm]}
-                        className="markdown-content"
-                      >
-                        {msg.content}
-                      </ReactMarkdown>
+                      <div className="markdown-content">
+                        <ReactMarkdown 
+                          remarkPlugins={[remarkGfm]}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
+                      </div>
                     </div>
                   </div>
                 ))}
