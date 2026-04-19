@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Book, Calendar, Search, Shield } from 'lucide-react';
+import { Book, Calendar, Search, Shield, Lock } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +8,13 @@ import historyData from './data/history.json';
 interface Message {
   role: string;
   content: string;
+  logs?: {
+    action: string;
+    details: string;
+    diff?: string;
+    artifact?: string;
+    artifact_content?: string;
+  }[];
 }
 
 interface Conversation {
@@ -18,6 +25,10 @@ interface Conversation {
 }
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? true : false;
+  });
+  const [password, setPassword] = useState('');
   const [conversations] = useState<Conversation[]>(historyData);
   const [activeId, setActiveId] = useState<string>(historyData[0]?.id || '');
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,6 +39,49 @@ export default function App() {
     c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     c.messages.some(m => m.content.toLowerCase().includes(searchQuery.toLowerCase()))
   );
+
+  if (!isAuthenticated) {
+    return (
+      <div className="app-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{ background: 'var(--bg-tertiary)', padding: '3rem', borderRadius: '16px', textAlign: 'center', border: '1px solid var(--border)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
+        >
+          <Lock size={48} style={{ margin: '0 auto 1.5rem auto', color: 'var(--accent-primary)' }} />
+          <h2 style={{ marginBottom: '0.5rem', fontSize: '1.5rem', fontWeight: 600 }}>Access Required</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '0.9rem' }}>Please enter the 4-digit PIN to access</p>
+          <input 
+            type="password" 
+            maxLength={4}
+            placeholder="••••"
+            value={password}
+            onChange={(e) => {
+              const val = e.target.value;
+              setPassword(val);
+              if(val === '1234') {
+                setTimeout(() => setIsAuthenticated(true), 200);
+              }
+            }}
+            autoFocus
+            style={{
+              fontSize: '2rem',
+              letterSpacing: '0.8rem',
+              textAlign: 'center',
+              width: '160px',
+              padding: '0.75rem',
+              borderRadius: '12px',
+              border: '2px solid var(--border)',
+              background: 'var(--bg-primary)',
+              color: 'var(--text-primary)',
+              outline: 'none',
+              transition: 'border-color 0.2s'
+            }}
+          />
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
@@ -110,6 +164,38 @@ export default function App() {
                           {msg.content}
                         </ReactMarkdown>
                       </div>
+
+                      {msg.logs && msg.logs.length > 0 && (
+                        <div className="technical-logs">
+                          <div className="logs-header">
+                            <Shield size={14} />
+                            <span>Blackbox: Technical Step Log</span>
+                          </div>
+                          <div className="logs-body">
+                            {msg.logs.map((log, lidx) => (
+                              <div key={lidx} className="log-entry">
+                                <div className="log-action">{log.action}</div>
+                                <div className="log-details">{log.details}</div>
+                                {log.artifact && (
+                                  <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--accent-secondary)', fontWeight: 600 }}>
+                                    📦 Artifact: {log.artifact}
+                                  </div>
+                                )}
+                                {log.artifact_content && (
+                                  <pre className="log-diff" style={{ color: '#8be9fd' }}>
+                                    <code>{log.artifact_content}</code>
+                                  </pre>
+                                )}
+                                {log.diff && (
+                                  <pre className="log-diff">
+                                    <code>{log.diff}</code>
+                                  </pre>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
